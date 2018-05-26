@@ -4,6 +4,10 @@
     "description": "LaTeX-style unicode input",
     "version": "0.0.1",
     "publisher": "yellpika",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/YellPika/vscode-latex-input"
+    },
     "engines": {
         "vscode": "^1.23.0"
     },
