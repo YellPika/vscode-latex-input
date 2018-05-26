@@ -1,0 +1,135 @@
+{
+    "name": "latex-input",
+    "displayName": "latex-input",
+    "description": "LaTeX-style unicode input",
+    "version": "0.0.1",
+    "publisher": "yellpika",
+    "engines": {
+        "vscode": "^1.23.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "latex-input.reload-mappings",
+                "title": "Latex Input: Reload Mappings"
+            }
+        ],
+        "configuration": {
+            "title": "LaTeX input configuration",
+            "properties": {
+                "latex-input.selector": {
+                    "description": "Defines what files to activate the extension on. See https://code.visualstudio.com/docs/extensionAPI/vscode-api#DocumentSelector for details.",
+                    "default": [
+                        {
+                            "scheme": "file"
+                        },
+                        {
+                            "scheme": "untitled"
+                        }
+                    ],
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "language": {
+                                    "type": "string"
+                                },
+                                "pattern": {
+                                    "type": "string"
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "language": {
+                                                "type": "string"
+                                            },
+                                            "pattern": {
+                                                "type": "string"
+                                            },
+                                            "scheme": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "latex-input.triggers": {
+                    "description": "A string containing the characters the extension should activate on.",
+                    "type": "string",
+                    "default": "\\"
+                },
+                "latex-input.mappings": {
+                    "description": "A filename pointing to a JSON file containing mappings, an object defining mappings, or a list of either.",
+                    "default": [
+                        "default-mappings.json"
+                    ],
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "tslint": "^5.8.0",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
