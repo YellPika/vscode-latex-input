@@ -9,7 +9,8 @@ import {
   Range,
   CompletionItemProvider,
   CompletionItem,
-  CompletionItemKind
+  CompletionItemKind,
+  TextEdit
 } from 'vscode';
 
 export function activate(context: ExtensionContext) {
@@ -50,9 +51,8 @@ export function activate(context: ExtensionContext) {
         let to: string = mappings[from];
         let item = new CompletionItem('\\' + from);
         item.detail = to;
-        item.insertText = to;
         item.kind = CompletionItemKind.Text;
-        item.range = range;
+        item.textEdit = TextEdit.replace(range, to);
         completions.push(item);
       }
 
