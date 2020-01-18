@@ -49,7 +49,7 @@ export function activate(context: ExtensionContext) {
       let completions: Array<CompletionItem> = [];
       for (const from in mappings) {
         let to: string = mappings[from];
-        let item = new CompletionItem('\\' + from);
+        let item = new CompletionItem(config.triggers + from);
         item.detail = to;
         item.kind = CompletionItemKind.Text;
         item.textEdit = TextEdit.replace(range, to);
