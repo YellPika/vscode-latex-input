@@ -10,7 +10,7 @@
 		"url": "https://github.com/YellPika/vscode-latex-input"
 	},
 	"engines": {
-		"vscode": "^1.23.0"
+		"vscode": "^1.52.0"
 	},
 	"categories": [
 		"Other"
