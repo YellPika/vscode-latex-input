@@ -2,7 +2,7 @@
 	"name": "latex-input",
 	"displayName": "latex-input",
 	"description": "LaTeX-style unicode input",
-	"version": "0.5.0",
+	"version": "1.0.0",
 	"publisher": "yellpika",
 	"license": "MIT",
 	"repository": {
