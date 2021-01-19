@@ -49,7 +49,7 @@ export function activate(context: ExtensionContext) {
       let completions: Array<CompletionItem> = [];
       for (const from in mappings) {
         let to: string = mappings[from];
-        let item = new CompletionItem('\\' + from);
+        let item = new CompletionItem(context.triggerCharacter + from);
         item.detail = to;
         item.kind = CompletionItemKind.Text;
         item.textEdit = TextEdit.replace(range, to);
@@ -65,7 +65,7 @@ export function activate(context: ExtensionContext) {
     return languages.registerCompletionItemProvider(
       config.selector,
       completionProvider,
-      config.triggers);
+      ...config.triggers);
   }
 
   reloadMappings();
@@ -78,7 +78,8 @@ export function activate(context: ExtensionContext) {
         reloadMappings();
       }
 
-      if (e.affectsConfiguration("latex-input.selector")) {
+      if (e.affectsConfiguration("latex-input.selector") ||
+          e.affectsConfiguration("latex-input.triggers")) {
         registration.dispose();
         registration = registerCompletionProvider();
       }
