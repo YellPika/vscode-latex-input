@@ -27,61 +27,13 @@
 			}
 		],
 		"configuration": {
-			"title": "LaTeX input configuration",
+			"title": "LaTeX input",
 			"properties": {
-				"latex-input.selector": {
-					"description": "Defines what files to activate the extension on. See https://code.visualstudio.com/docs/extensionAPI/vscode-api#DocumentSelector for details.",
-					"default": [
-						{
-							"scheme": "file"
-						},
-						{
-							"scheme": "untitled"
-						}
-					],
-					"anyOf": [
-						{
-							"type": "string"
-						},
-						{
-							"type": "object",
-							"properties": {
-								"language": {
-									"type": "string"
-								},
-								"pattern": {
-									"type": "string"
-								},
-								"scheme": {
-									"type": "string"
-								}
-							}
-						},
-						{
-							"type": "array",
-							"items": {
-								"anyOf": [
-									{
-										"type": "string"
-									},
-									{
-										"type": "object",
-										"properties": {
-											"language": {
-												"type": "string"
-											},
-											"pattern": {
-												"type": "string"
-											},
-											"scheme": {
-												"type": "string"
-											}
-										}
-									}
-								]
-							}
-						}
-					]
+				"latex-input.enabled": {
+					"description": "Enables or disables the extension.",
+					"type":"boolean",
+					"default": true,
+					"scope": "language-overridable"
 				},
 				"latex-input.triggers": {
 					"description": "A string containing the characters the extension should activate on.",
@@ -119,7 +71,8 @@
 								]
 							}
 						}
-					]
+					],
+					"scope": "language-overridable"
 				}
 			}
 		}
