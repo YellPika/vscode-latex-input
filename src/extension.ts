@@ -1,6 +1,6 @@
 'use strict';
 
-import { readFileSync } from 'fs';
+import { isAbsolute } from 'path';
 import {
   ExtensionContext,
   languages,
@@ -8,12 +8,13 @@ import {
   Range,
   CompletionItemProvider,
   CompletionItem,
-  CompletionItemKind
+  CompletionItemKind,
+  Uri
 } from 'vscode';
 
 export function activate(context: ExtensionContext) {
   let completionProvider: CompletionItemProvider = {
-    async provideCompletionItems(document, position, token, {triggerCharacter}) {
+    async provideCompletionItems(document, position, token, { triggerCharacter }) {
       let config = workspace.getConfiguration('latex-input', document);
       if (!config.enabled || config.triggers.indexOf(triggerCharacter) === -1) {
         return [];
@@ -23,12 +24,37 @@ export function activate(context: ExtensionContext) {
       let completions: Array<CompletionItem> = [];
 
       type Mappings = { [key: string]: string };
-      function load(obj: string | Mappings | (string | Mappings)[]) {
+      async function load(obj: string | Mappings | (string | Mappings)[]) {
         if (typeof obj === "string") {
-          let filename = context.asAbsolutePath(obj);
-          load(JSON.parse(readFileSync(filename).toString()));
+          if (isAbsolute(obj)) {
+            try {
+              let buffer = await workspace.fs.readFile(Uri.file(obj));
+              await load(JSON.parse(buffer.toString()));
+            } catch { }
+            return;
+          }
+
+          if (workspace.workspaceFolders && obj.includes('${workspaceFolder}')) {
+            for (let i = 0; i < workspace.workspaceFolders.length; i++) {
+              try {
+                let uri = Uri.file(obj.replace(
+                  '${workspaceFolder}',
+                  workspace.workspaceFolders[i].uri.fsPath + '/'));
+                let buffer = await workspace.fs.readFile(uri);
+                await load(JSON.parse(buffer.toString()));
+              } catch { }
+            }
+            return;
+          }
+
+          try {
+            let uri = Uri.file(context.asAbsolutePath(obj));
+            let buffer = await workspace.fs.readFile(uri);
+            await load(JSON.parse(buffer.toString()));
+          } catch { }
         } else if (obj instanceof Array) {
-          obj.forEach(load);
+          for (const entry of obj)
+            await load(entry);
         } else {
           for (const from in obj) {
             let to = obj[from];
@@ -42,7 +68,7 @@ export function activate(context: ExtensionContext) {
         }
       }
 
-      load(config.mappings);
+      await load(config.mappings);
 
       return completions;
     }
