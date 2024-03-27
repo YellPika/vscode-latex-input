@@ -2,7 +2,7 @@
 	"name": "latex-input",
 	"displayName": "latex-input",
 	"description": "LaTeX-style unicode input",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"publisher": "yellpika",
 	"license": "MIT",
 	"repository": {
@@ -31,7 +31,7 @@
 			"properties": {
 				"latex-input.enabled": {
 					"description": "Enables or disables the extension.",
-					"type":"boolean",
+					"type": "boolean",
 					"default": true,
 					"scope": "language-overridable"
 				},
