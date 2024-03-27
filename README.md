@@ -6,7 +6,7 @@ This extension allows you to enter Unicode symbols using LaTeX-like commands. Av
 
 * `latex-input.enabled`: Enables or disables the extension. This can be set on a per-language basis. For example:
 
-  ```json
+  ```js
   "[latex]": {
     "latex-input.enabled": false
   }
@@ -18,7 +18,7 @@ This extension allows you to enter Unicode symbols using LaTeX-like commands. Av
 
   1. A JSON object with specific mappings:
 
-      ```json
+      ```js
       "latex-input.mappings": {
         "pm": "±",
         "mp": "∓",
@@ -31,11 +31,11 @@ This extension allows you to enter Unicode symbols using LaTeX-like commands. Av
 
   2. A filename pointing to a JSON file with the desired configuration:
 
-      ```json
+      ```js
       "latex-input.mappings": "${workspaceFolder}my-mappings.json"
       ```
 
-      ```json
+      ```js
       // ${workspaceFolder}my-mappings.json
       {
         "pm": "±",
@@ -51,7 +51,7 @@ This extension allows you to enter Unicode symbols using LaTeX-like commands. Av
 
   3. An array of filenames and JSON objects:
 
-      ```json
+      ```js
       "latex-input.mappings": [
         {...},
         "${workspaceFolder}my-mappings.json"
