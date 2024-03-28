@@ -77,7 +77,7 @@ export function activate(context: ExtensionContext) {
   function registerCompletionProvider() {
     let config = workspace.getConfiguration('latex-input');
     return languages.registerCompletionItemProvider(
-      { pattern: "*" },
+      { pattern: "**" },
       completionProvider,
       ...config.triggers);
   }
